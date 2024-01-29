@@ -1,0 +1,23 @@
+from sklearn.model_selection import train_test_split
+from sklearn.naive_bayes import GaussianNB
+from sklearn import datasets
+from sklearn import metrics
+
+iris = datasets.load_iris()
+X = iris.data
+y = iris.target
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+
+naive_bayes_classifier = GaussianNB()
+
+naive_bayes_classifier.fit(X_train, y_train)
+
+y_pred = naive_bayes_classifier.predict(X_test)
+
+accuracy = metrics.accuracy_score(y_test, y_pred)
+print(f"Accuracy: {accuracy:.2f}")
+
+new_data_point = [[5.0, 3.5, 1.5, 0.2]]  # Example new data point from the Iris dataset
+predicted_class = naive_bayes_classifier.predict(new_data_point)
+print(f"Predicted Class: {predicted_class[0]}")
